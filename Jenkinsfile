@@ -1,12 +1,14 @@
 pipeline {
 	agent any
-    
+
     stages {
     	
         stage('Npm Build') {
         	steps {
-            	sh "yarn install"
-                sh "yarn run build"
+                nodejs('NodeJS 18.7.0'){
+                    sh "yarn install"
+                    sh "yarn run build"
+                }
             }
         }
         stage('Deploy') {
