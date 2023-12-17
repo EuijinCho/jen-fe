@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Deploy') {
         	steps{
-                withCredentials([string(credentialsId: 'tony.cho')]) {
+                withCredentials([aws(credentialsId: 'tony.cho',accessKeyVariable: 'AWS_ACCESS_KEY_ID',secretKeyVariable:'AWS_SECRET_ACCESS_KEY')]) {
                     sh "aws s3 sync ./build s3://jen-fe"
             	    sh 'aws cloudfront create-invalidation --distribution-id E16N16FQO7NFSF --paths "/*"'     
                 }
