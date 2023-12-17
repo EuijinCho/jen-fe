@@ -13,8 +13,8 @@ pipeline {
         }
         stage('Deploy') {
         	steps{
-                withAWS(region: 'ap-northeast-2', credentials: 'tony.cho') {
-                    sh "aws s3 sync ./build s3://jen-fe --delete --profile default"
+                withCredentials([string(credentialsId: 'tony.cho')]) {
+                    sh "aws s3 sync ./build s3://jen-fe"
             	    sh 'aws cloudfront create-invalidation --distribution-id E16N16FQO7NFSF --paths "/*"'     
                 }
             }
